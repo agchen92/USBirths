@@ -47,6 +47,7 @@ print(cdc_month_births)
 Creating a function to dwelve deeper into data and check the
 births per day of week
 '''
+
 def dow_births(input_listoflists):
     day_of_week={}
     for row1 in input_listoflists:
@@ -89,9 +90,8 @@ print(cdc_dow_births)
 
 '''
 Creating a function to calculat the MAX and MIN values of any dictionary
-to check the values of each dictionary as sanity check
+to check the values of each dictionary as sanity check.
 '''
-
 def maxmin_dict (dictionary):
     maxmin_result={}
     min=None
@@ -105,3 +105,39 @@ def maxmin_dict (dictionary):
     maxmin_result['Max']=max
     maxmin_result['Min']=min
     return maxmin_result
+
+'''
+Creating a function that extracts the same values across years and calculates the 
+differences between consecutive values to show if number of births is increasing or decreasing
+to see if there any possible trends.
+'''
+
+def yearchangecalc(input_list,parameter1,parameter2):
+    #parameter1 is month, date_of_month, day_of_week
+    if parameter1=='month':
+        column_selector=1
+    if parameter1=='date_of_month':
+        column_selector=2
+    if parameter1=='day_of_week':
+        column_selector=3
+    #parameter2 is what month, what date, what day
+    selector=parameter2
+    #print error
+    if parameter1=='month' and parameter2>12:
+        return 'Month does not work with parameter2.'
+    if parameter1=='date_of_month' and parameter2>31:
+        return 'Date of month does not work with parameter2.'
+    if parameter1=='day_of_week' and parameter2>7:
+        return 'Day of week does not work with parameter2.'
+    if parameter2<=0:
+        return 'Parameter 2 cannot be less than 1.'
+    #iterate over every list of list
+    annual_changes={}
+    for date in input_list:
+        year=date[0]
+        births=date[4]
+        if year in annual_changes and date[column_selector]==parameter2:
+            annual_changes[year]=annual_changes[year]+births
+        if year not in annual_changes and date[column_selector]==parameter2:
+            annual_changes[year]=births
+    return annual_changes
