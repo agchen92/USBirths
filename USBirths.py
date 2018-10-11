@@ -64,6 +64,7 @@ print(cdc_day_births)
 
 '''Create a function that calculates a wide variety of totals from:
 annual births, monthly births, DOM, and DOW'''
+
 def calc_count(input_list,column):
     tot_births_value={}
     column_number=column-1
@@ -85,3 +86,22 @@ print(cdc_year_births)
 print(cdc_month_births)
 print(cdc_dom_births)
 print(cdc_dow_births)
+
+'''
+Creating a function to calculat the MAX and MIN values of any dictionary
+to check the values of each dictionary as sanity check
+'''
+
+def maxmin_dict (dictionary):
+    maxmin_result={}
+    min=None
+    max=None
+    v_list=list(dictionary.values())
+    for item in v_list:
+        if max is None or item>max:
+            max=item
+        if min is None or item<min:
+            min=item
+    maxmin_result['Max']=max
+    maxmin_result['Min']=min
+    return maxmin_result
