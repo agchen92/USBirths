@@ -69,7 +69,7 @@ def calc_count(input_list,column):
     column_number=column-1
     for rows in input_list[1:]:
         if rows[column_number] in tot_births_value:
-            tot_births_value[rows[column_number]]+=
+            tot_births_value[rows[column_number]]+=1
         else:
             tot_births_value[rows[column_number]]=1
     return tot_births_value
