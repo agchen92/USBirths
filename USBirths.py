@@ -141,3 +141,35 @@ def yearchangecalc(input_list,parameter1,parameter2):
         if year not in annual_changes and date[column_selector]==parameter2:
             annual_changes[year]=births
     return annual_changes
+
+'''
+Found new dataset that provides a more comprehensive picture of the
+births from 2000 - 2014. Determine strategy to combine CDC data with
+SSA data...specifically lets figure a way to deal with the overlapping
+time periods in the datasets.
+'''
+
+ssa_list=read_csv('US_births_2000-2014_SSA.csv')
+print(ssa_list[0:10])
+
+#So we can see that the SSA list is conveniently the same format as the CDC list
+#that we have been using before. Now we just need to create a general function that
+#lets us merge these two lists and perhaps even future lists and deal with overlapping
+#dates. ###If two dates overlap, we will take the average of the two births.
+
+def list_merger(list1,list2):
+  list_merger=[]
+  for rows1 in list1:
+    births=rows1[4]
+    for rows2 in list2:
+      if rows1[0]==rows2[0] and rows1[1]==rows2[1] and rows1[2]==rows2[2] and rows1[3]==rows2[3]:
+        births=(rows1[4]+rows2[4])/2
+    data1=[rows1[0],rows1[1],rows1[2],rows1[3],births]
+    list_merger.append(data1)
+  for rows2 in list2:
+    births=rows2[4]
+    for rows1 in list1:
+      if rows1[0]!=rows2[0] and rows1[1]!=rows2[1] and rows1[2]!=rows2[2] and rows1[3]!=rows2[3]:
+        data2=[rows2[0],rows2[1],rows2[2],rows2[3],births]
+    list_merger.append(data2)   
+  return list_merger
